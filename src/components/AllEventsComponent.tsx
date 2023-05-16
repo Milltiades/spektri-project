@@ -19,7 +19,7 @@ export default function AllEventsComponent() {
       </Form>
       <Div>
         <Ul>
-        {data.map((item) => {
+        {data.map((item:any) => {
           return (
             <Li key={item.id} onClick={() => console.log('click', item.id)}>
               <Event />
