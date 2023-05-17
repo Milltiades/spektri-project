@@ -77,7 +77,7 @@ const Event = styled.div`
   background: #d9d9d9;
   border-radius: 8px;
   height: 178px;
-  background-image: url('/assets/screen.jpeg');
+  background-image: url('/assets/jazz.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

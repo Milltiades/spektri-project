@@ -26,6 +26,18 @@ const Header = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px 19px;
+  @media (min-width: 768px) {
+flex-direction: row;
+ justify-content: space-between;
+  align-items: center;
+  }
+  
+  @media (min-width: 1200px) {
+    padding: 66px 127px;
+    
+   
+   
+  }
 `;
 
 const Img = styled.img`
@@ -37,6 +49,15 @@ const DivBtn = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 30px 0;
+  @media (min-width: 768px) {
+    width: 65%;
+  }
+ 
+  @media (min-width: 1200px) {
+    width: 50%;
+    padding: 0;
+ align-items: center;
+  }
 `;
 const ButtonSign = styled.button`
   width: 45%;
@@ -50,6 +71,12 @@ const ButtonSign = styled.button`
   line-height: 24px;
   cursor: pointer;
   color: #e0e0e0;
+   @media (min-width: 768px) {
+   height: 43px;
+  }
+   @media (min-width: 1200px) {
+   height: 50px;
+  }
 `;
 
 const ButtonLog = styled(ButtonSign)`

@@ -10,7 +10,7 @@ export default function AllEventsComponent() {
        Choose a Date 
        <img src="/assets/box.svg" alt="box" />
        </Label>
-       <Label htmlFor="" onClick={() => console.log('clicked')}> 
+       <Label htmlFor="" onClick={() => console.log('clicked')} > 
        Category 
        <img src="/assets/box.svg" alt="box" />
        </Label>
@@ -48,9 +48,17 @@ margin-top: 28px;
 cursor: pointer;
 & img {
   margin-left: 15px;
+  width: auto;
 }
 @media (min-width: 768px) {
   width: 50%;
+}
+@media (min-width: 1200px) {
+  margin-top: 0;
+  width: 100%;
+  
+  
+ 
 }
 `
 
@@ -83,6 +91,11 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (min-width: 1200px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 126px 104px;
+  }
 `;
 const Form = styled.form`
   display: flex;
@@ -92,6 +105,16 @@ const Form = styled.form`
     flex-direction: row;
     flex-wrap: wrap;
   }
+  @media (min-width: 1200px) {
+    flex-direction: row;
+   width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* justify-content: space-between; */
+    gap: 120px;
+  }
+ 
+  
 `;
 
 const Search = styled.input`
@@ -107,6 +130,12 @@ const Search = styled.input`
   border: none;
   margin-top: 22px;
   margin-bottom: 28px;
+  @media (min-width: 1200px) {
+    
+   
+  }
+  
+
 `;
 
 const Event = styled.div`
@@ -114,6 +143,10 @@ const Event = styled.div`
   height: 178px;
   background: #d9d9d9;
   border-radius: 8px;
+  background-image: url('/assets/jazz.jpg');
+  background-repeat:no-repeat;
+  background-size: cover;
+  background-position: center;
   /* @media (min-width: 768px){
     width: 95%;
   } */

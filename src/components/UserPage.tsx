@@ -33,6 +33,9 @@ const ButtonsDiv = styled.div`
   justify-content: space-between;
   gap: 33px;
   margin-bottom: 35px;
+  @media (min-width: 1200px) {
+    gap: 68px;
+  }
 `;
 
 const Button = styled.button`
@@ -48,11 +51,19 @@ const Button = styled.button`
   @media (min-width: 768px) {
     height: 214px;
   }
+  @media (min-width: 1200px) {
+    font-size: 60px;
+line-height: 73px;
+
+  }
 `;
 
 const Main = styled.div`
   width: 100%;
   padding: 0 19px;
+  @media (min-width: 1200px) {
+    padding: 0 126px;
+  }
 `;
 
 const Event = styled.div`
@@ -65,5 +76,6 @@ const Event = styled.div`
   align-items: center;
   margin-top: 16px;
   margin-bottom: 100px;
+  
  
 `;

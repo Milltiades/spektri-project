@@ -20,6 +20,9 @@ export default function HomePage() {
 
 const PopularEventsDiv = styled.div`
   padding: 0 19px;
+  @media (min-width: 1200px) {
+    padding: 0 126px;
+  }
 `;
 
 const PopularH1 = styled.h1`
