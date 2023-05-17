@@ -61,6 +61,6 @@ const Main = styled.div`
     @media (min-width: 1200px) {
     padding: 79px 206px;
     width: 60%;
-    margin: 0 auto 96px auto;
+    margin: 100px auto 196px auto;
   }
 `;
