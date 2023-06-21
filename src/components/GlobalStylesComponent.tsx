@@ -36,4 +36,12 @@ button {
   transition: all .3s ease;
 }
 
+
+.userMeil{
+  &:hover {
+    opacity: 0.8;
+    transition: all .3s ease;
+    color: #6e6e6e;
+  }
+}
 `;

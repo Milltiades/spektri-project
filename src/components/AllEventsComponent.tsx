@@ -1,8 +1,40 @@
-
+import axios from "axios";
 import  styled  from "styled-components";
-import data from "../../data.json";
+
+import { useContext, useEffect, useState } from "react";
+
+import { AuthContext } from "../context/AuthContext";
+
 
 export default function AllEventsComponent() {
+
+  // const {isAuthenticated, setIsAuthenticated } = useContext<any>(AuthContext)
+const [events, setEvents] = useState<any>(null)
+
+
+
+  useEffect(() => {
+
+   
+
+    const fetchEvents = async () => {
+       const response = await fetch('http://localhost:3000/events/allCompany/events')
+       const json = await response.json()
+
+       if(response.ok){
+        setEvents(json);
+     
+       }
+    }
+
+    fetchEvents();
+    console.log('events: ', events);
+
+
+    
+  }, [])
+  
+
   return (
     <Main>
       <Form>
@@ -18,16 +50,21 @@ export default function AllEventsComponent() {
         <Search type="text" placeholder="Search" />
       </Form>
       <Div>
+       
+
         <Ul>
-        {data.map((item:any) => {
-          return (
-            <Li key={item.id} onClick={() => console.log('click', item.id)}>
-              <Event />
-              <H1>{item.title}</H1>
-              <P>{item.text}</P>
+          {events && events.map((event:any, index: any) => {
+            return (
+              <Li key={index} onClick={() => console.log('click', event._id)}>
+              <Event>
+              <P>{event.price} GEL</P>
+
+              </Event>
+              <H1>{event.nameE}</H1>
+              <p>{new Date(event.eventStartTime).toLocaleDateString()}</p>
             </Li>
-          );
-        })}
+            )
+          })}
         </Ul>
       </Div>
       <Button>Load More</Button>
@@ -138,19 +175,29 @@ const Search = styled.input`
 
 `;
 
-const Event = styled.div`
+const Event = styled.div<any>`
   width: 100%;
   height: 178px;
   background: #d9d9d9;
   border-radius: 8px;
   background-image: url('/assets/jazz.jpg');
+  /* background-image: ${(props) => props.img}; */
   background-repeat:no-repeat;
   background-size: cover;
   background-position: center;
   /* @media (min-width: 768px){
     width: 95%;
   } */
- 
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
+  padding: 20px;
+  color: white;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.8) 5px 5px 55px inset;
+
+  }
 `;
 const H1 = styled.h1`
   font-style: normal;
@@ -167,8 +214,8 @@ const P = styled.p`
   font-size: 18px;
   line-height: 24px;
   margin-top: 8px;
-  color: #555454;
-  margin-bottom: 24px;
+  color: white;
+
 `;
 
 const Button = styled.button`

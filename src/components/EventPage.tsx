@@ -1,7 +1,25 @@
 import { styled } from "styled-components";
 import SwiperComponent from "./SwiperComponent";
+import { useEffect, useState } from "react";
 
 export default function EventPage() {
+
+  const [event, setEvent] = useState<any>(null)
+  useEffect(() => {
+
+    const fetchEvents = async () => {
+       const response = await fetch('http://localhost:3000/events/:eventID')
+       const json = await response.json()
+
+       if(response.ok){
+        setEvent(json);
+     
+       }
+    }
+
+    fetchEvents();
+    console.log('event: ', event);
+  }, [])
   return (
     <Main>
       <Div>
@@ -46,6 +64,7 @@ export default function EventPage() {
           </P>
         </TextDiv>
       </Div>
+      
       <SwiperComponent/>
     </Main>
   );
@@ -62,6 +81,7 @@ const Event = styled.div`
   border-radius: 8px;
   @media (min-width: 768px) {
     height: 371px;
+    width: 50%;
   }
 `;
 
@@ -99,9 +119,20 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width:768px){
+    width: 50%;
+    padding-left: 40px;
+  }
 `;
 const Div = styled.div`
   width: 100%;
+  @media screen and (min-width:1200px){
+    padding: 0 126px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
 `;
 
 const P = styled.p`

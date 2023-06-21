@@ -1,31 +1,114 @@
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+import { AuthContext } from "../context/AuthContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function UserPage() {
+ const {isUser, setIsUser, isAuthenticated} = useContext<any>(AuthContext);
+ const [events, setEvents] = useState<any>([])
   const navigate = useNavigate();
+
+  const handleAddEvent = () => {
+    navigate("/add-event");
+  };
+
+  function getCookieValue(cookieName:any) {
+    const cookies = document.cookie.split("; ");
+
+    for (let i = 0; i < cookies.length; i++) {
+      const [name, value] = cookies[i].split("=");
+
+      if (name === cookieName) {
+        return decodeURIComponent(value);
+      }
+    }
+
+    return undefined; // Cookie not found
+  }
+
+  const token = getCookieValue("_auth");
+
+  useEffect(() => {
+    if (token) {
+      console.log("Token:", token);
+      // Split the JWT into its three parts: header, payload, and signature
+      const [encodedHeader, encodedPayload, encodedSignature] = token.split(".");
+
+      // Decode the Base64 encoded header and payload
+      const decodedHeader = JSON.parse(atob(encodedHeader));
+      const decodedPayload = JSON.parse(atob(encodedPayload));
+
+      console.log("Decoded Header:", decodedHeader);
+      console.log("Decoded Payload:", decodedPayload);
+
+      const fetchEvents = async () => {
+        try {
+          const response = await fetch(`http://localhost:3000/events/list/${decodedPayload.companyID}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          if (response.ok) {
+            const json = await response.json();
+           
+              console.log('json: ', json);
+              setEvents(json)
+              setIsUser(decodedPayload.email)
+           
+           
+          } else {
+            console.log('Error:', response.status);
+          }
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+
+      fetchEvents();
+    } else {
+      console.log("Token cookie not found.");
+    }
+    console.log("isAuthenticated: ", isAuthenticated)
+  }, [token]);
+
+
   return (
     <Main>
       <ButtonsDiv>
-        <Button onClick={() => navigate("/add-event")}>Add Event</Button>
+        <Button onClick={handleAddEvent}>Add Event</Button>
         <Button>Subscription</Button>
       </ButtonsDiv>
-      <div>
-        <h1>My Events</h1>
-        <Div>
-          <Event>N/A</Event>
+     
+          <div>
+          <h1>My Events</h1>
           
-        </Div>
-      </div>
+          <Div >
+          {events && events.map((event:any, index:any) => {
+            return (
+              <div key={index}>
+            <Event >
+            <p>{event.price} Gel</p>
+              </Event>
+              
+           
+            <h2>{event.nameE}</h2>
+           
+            </div>
+            )
+          })}
+          </Div>
+     </div>
     </Main>
   );
 }
 
 const Div = styled.div`
-display: grid;
-@media (min-width: 768px) {
-  grid-template-columns: auto auto;
-  gap: 25px;
-}
+  display: grid;
+  @media (min-width: 768px) {
+    grid-template-columns: auto auto;
+    gap: 25px;
+  }
 `;
 const ButtonsDiv = styled.div`
   display: flex;
@@ -53,8 +136,7 @@ const Button = styled.button`
   }
   @media (min-width: 1200px) {
     font-size: 60px;
-line-height: 73px;
-
+    line-height: 73px;
   }
 `;
 
@@ -72,10 +154,9 @@ const Event = styled.div`
   width: 100%;
   height: 178px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  align-items:end;
   margin-top: 16px;
-  margin-bottom: 100px;
-  
- 
+  margin-bottom: 16px;
+  padding: 20px;
 `;

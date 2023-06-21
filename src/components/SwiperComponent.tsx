@@ -19,7 +19,7 @@ export default function SwiperComponent() {
 
       spaceBetween={37}
       slidesPerView={1}
-      onSwiper={(swiper: any) => console.log(swiper)}
+      onSwiper={(swiper: any) => console.log(swiper, 'swiper')}
       onSlideChange={() => console.log("slide change")}
       breakpoints={{
         768: {
