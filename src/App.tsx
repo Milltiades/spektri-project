@@ -52,7 +52,7 @@ function App() {
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/event" element={<EventPage />} />
+        <Route path="/events/:id" element={<EventPage />} />
         <Route path="/signup" element={<SignInPage/>}/>
         <Route path="login" element={<LoginPage/>} />
         <Route path="/user" element={<RequireAuth loginPath="/login"><UserPage /></RequireAuth> } /> 

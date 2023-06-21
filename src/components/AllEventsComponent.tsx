@@ -4,6 +4,7 @@ import  styled  from "styled-components";
 import { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function AllEventsComponent() {
@@ -11,7 +12,7 @@ export default function AllEventsComponent() {
   // const {isAuthenticated, setIsAuthenticated } = useContext<any>(AuthContext)
 const [events, setEvents] = useState<any>(null)
 
-
+const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -55,7 +56,7 @@ const [events, setEvents] = useState<any>(null)
         <Ul>
           {events && events.map((event:any, index: any) => {
             return (
-              <Li key={index} onClick={() => console.log('click', event._id)}>
+              <Li key={index} onClick={() => navigate(`/events/${event.eventID}`) }>
               <Event>
               <P>{event.price} GEL</P>
 
@@ -71,6 +72,7 @@ const [events, setEvents] = useState<any>(null)
     </Main>
   );
 }
+//${event._id}
 
 const Label = styled.label`
   font-style: normal;
